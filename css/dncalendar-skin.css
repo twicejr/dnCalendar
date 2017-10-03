@@ -82,7 +82,7 @@
 	vertical-align: middle;
 }
 
-.dncalendar-body tbody td#calendarClick {
+.dncalendar-body tbody td.calendarClickable {
 	cursor: pointer;
 }
 

@@ -381,8 +381,8 @@
          * draw calendar and give call back when date selected
          */
         var draw = function () {
+            
             var m = currDate.getMonth(); // get month
-            var d = currDate.getDate(); // get date of month
             var y = currDate.getFullYear(); // get full year
 
             var dates = getWeekOfMonth(m, y);
@@ -411,7 +411,7 @@
             }
 
             // create header label
-            var headerGroup = $("<div id='dncalendar-header' class='dncalendar-header'></div>");
+            var headerGroup = $("<div class='dncalendar-header'></div>");
             headerGroup.append("<h2>" + headerMonth + " " + y + "</h2>");
 
             // determine prev link as false
@@ -447,9 +447,9 @@
             }
 
             // create link group
-            var calendarLinksGroup = $("<div id='dncalendar-links' class='dncalendar-links'></div>");
-            var prevLinkGroup = $("<div id='dncalendar-prev-month' class='dncalendar-prev-month'></div>");
-            var nextLinkGroup = $("<div id='dncalendar-next-month' class='dncalendar-next-month'></div>");
+            var calendarLinksGroup = $("<div class='dncalendar-links'></div>");
+            var prevLinkGroup = $("<div class='dncalendar-prev-month'></div>");
+            var nextLinkGroup = $("<div class='dncalendar-next-month'></div>");
 
             // disable prev link
             if (prevInactive) {
@@ -468,14 +468,13 @@
             calendarLinksGroup.append(nextLinkGroup);
             headerGroup.append(calendarLinksGroup);
 
-            var bodyGroup = $("<div id='dncalendar-body' class='dncalendar-body'></div>");
+            var bodyGroup = $("<div class='dncalendar-body'></div>");
             var tableGroup = $("<table></table>");
 
             var weekName = settings.dayNames;
             if (settings.dayUseShortName == true) {
                 weekName = settings.dayNamesShort;
             }
-
 
             // do not re-order day of week for second times
             var dayIndex = getDayIndexOfWeek();
@@ -618,7 +617,7 @@
                         }
                     }
 
-                    var colDate = "<td id='calendarClick' class='" + colDateClass + " " + ((showCalendarClick == true) ? 'calendarClick' : '') + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                    var colDate = "<td class='calendarClickable " + colDateClass + " " + ((showCalendarClick == true) ? 'calendarClick' : '') + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
 
                     if (minDate != null) {
                         var myCurrentDate = new Date(year, month - 1, date);
@@ -740,7 +739,7 @@
 
         var triggerAction = function () {
 
-            $('body').on('click', '#calendarClick', function () {
+            self.on('click', '.calendarClickable', function () {
                 var selectedDate = $(this).data('date');
                 var selectedMonth = $(this).data('month');
                 var selectedYear = $(this).data('year');
@@ -749,11 +748,11 @@
 
             });
 
-            $('body').on('click', '#dncalendar-prev-month', function () {
+            self.on('click', '.dncalendar-prev-month', function () {
                 prevMonth();
             });
 
-            $('body').on('click', '#dncalendar-next-month', function () {
+            self.on('click', '.dncalendar-next-month', function () {
                 nextMonth();
             });
         };
