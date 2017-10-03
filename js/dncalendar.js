@@ -145,8 +145,6 @@
                 weeks.push(tempWeek);
             }
 
-            console.log("numDays", numDays);
-
             return weeks;
         };
 
@@ -268,15 +266,10 @@
                                                         tempArr.push(lastIndexTempArr + 1);
                                                     } else {
                                                         tempArr.push(weeks[newI][j + startDayWeek]);
-                                                        // console.log("first col ["+ newI +"]["+ (j + startDayWeek) +"] => " + val);
                                                     }
                                                 } else {
                                                     tempArr.push(weeks[newI][j + startDayWeek]);
-                                                    // console.log("first col ["+ newI +"]["+ (j + startDayWeek) +"] => " + val);
                                                 }
-
-                                                // tempArr.push(weeks[newI][j + startDayWeek]);
-                                                // console.log("first col ["+ newI +"]["+ (j + startDayWeek) +"] => " + val);
                                             }
                                         }
 
@@ -290,7 +283,6 @@
 
                                                     if (!isPush) {
                                                         tempArr.push(val);
-                                                        // console.log("next col ["+ (newI + 1) +"]["+ k +"] => " + val);
                                                     }
                                                 }
 
@@ -367,8 +359,6 @@
                         colLeft--;
                     }
 
-                    console.log("newArrCol", newArrCol);
-                    console.log("colLeft", colLeft);
                 }
 
                 return newArr;
@@ -391,17 +381,14 @@
                 for (var j = 0; j < dates[i].length; j++) {
                     string += dates[i][j] + " ";
                 }
-                console.log(i + " => " + string);
             }
 
-            console.log("--------------------------------");
             dates = sortingBySelectedDay(dates, m, y);
             for (var i = 0; i < dates.length; i++) {
                 var string = "";
                 for (var j = 0; j < dates[i].length; j++) {
                     string += dates[i][j] + " ";
                 }
-                console.log(i + " => " + string);
             }
 
             // get month name
@@ -496,7 +483,6 @@
 
                 weekNamesHasAlreadySorted = true
             }
-            console.log("week after", weekName);
 
             var sundayIndex = (dayIndex == 0) ? 0 : 7 - dayIndex;
             var saturdayIndex = 6 - dayIndex;
@@ -511,7 +497,6 @@
 
             var tableBodyGroup = $("<tbody></tbody>");
             var totalWeeks = weekCount(y, m + 1);
-            console.log("totalWeeks", totalWeeks);
             var totalDaysInWeeks = 7;
             var startDate = 1;
 
@@ -549,8 +534,6 @@
             var sundayIndex = (dayIndex == 0) ? 0 : 7 - dayIndex;
             var saturdayIndex = (dayIndex == 0) ? 7 - 1 : 7 - (dayIndex + 1);
 
-            console.log("sundayIndex", sundayIndex);
-            console.log("saturdayIndex", saturdayIndex);
 
             var nDates = dates.length;
             for (var i = 0; i < nDates; i++) {
