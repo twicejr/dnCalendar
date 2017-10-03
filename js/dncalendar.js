@@ -665,6 +665,7 @@
             self.append(headerGroup);
             self.append(bodyGroup);
             self.append(notesGroup);
+            self.addClass('ready');
         };
 
         var dateIsNotes = function (date) {
