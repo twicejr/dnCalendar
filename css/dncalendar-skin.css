@@ -118,34 +118,34 @@
 }
 
 .dncalendar-body table td.holiday {
-	color: #c55 !important;
+	color: #c55;
 }
 
 .dncalendar-body table td.active.holiday {
-	color: #d00 !important;
+	color: #d00;
 }
 
 .dncalendar-body table td.default-date {
 	border: 1px solid #96D4FD;
-	color: #96D4FD !important;
+	color: #96D4FD;
 	background: #e6f2fa;
 }
 
 .dncalendar-body table td.active.default-date {
 	border: 1px solid #0d7fcc;
-	color: #0d7fcc !important;
+	color: #0d7fcc ;
 	background: #e6f2fa;
 }
 
 .dncalendar-body table td.today-date {
 	border: 1px solid #7EE699;
-    color: #7EE699 !important;
+    color: #7EE699 ;
     background: #E9FDEE;
 }
 
 .dncalendar-body table td.active.today-date {
 	border: 1px solid #0DCC3F;
-    color: #0DCC3F !important;
+    color: #0DCC3F ;
     background: #E9FDEE;
 }
 
