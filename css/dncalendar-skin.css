@@ -86,7 +86,7 @@
 	cursor: pointer;
 }
 
-.dncalendar-body tbody td.calendarClick {
+.dncalendar-body tbody td.active {
 	color: #434343;
 	background: #fff;
 }
@@ -96,8 +96,14 @@
 	position: relative
 }
 
-.dncalendar-body tbody td.calendarClick:active {
-	background: #ddd
+.dncalendar-body tbody td:active {
+	background: #ddd;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .dncalendar-body tbody td .entry:after
@@ -115,7 +121,7 @@
 	color: #c55 !important;
 }
 
-.dncalendar-body table td.calendarClick.holiday {
+.dncalendar-body table td.active.holiday {
 	color: #d00 !important;
 }
 
@@ -125,7 +131,7 @@
 	background: #e6f2fa;
 }
 
-.dncalendar-body table td.calendarClick.default-date {
+.dncalendar-body table td.active.default-date {
 	border: 1px solid #0d7fcc;
 	color: #0d7fcc !important;
 	background: #e6f2fa;
@@ -137,14 +143,14 @@
     background: #E9FDEE;
 }
 
-.dncalendar-body table td.calendarClick.today-date {
+.dncalendar-body table td.active.today-date {
 	border: 1px solid #0DCC3F;
     color: #0DCC3F !important;
     background: #E9FDEE;
 }
 
 .dncalendar-body table td.note,
-.dncalendar-body table td.calendarClick.note {
+.dncalendar-body table td.active.note {
 	position: relative;
 }
 
@@ -162,7 +168,7 @@
     border-bottom: 5px solid transparent;
 }
 
-.dncalendar-body table td.calendarClick.note:before {
+.dncalendar-body table td.active.note:before {
 	display: block;
     position: absolute;
     width: 0;

@@ -549,12 +549,12 @@
                     var colDateClass = "";
                     var colDateDataAttr = "";
 
-                    var showCalendarClick = true;
+                    var showActiveMonthDay = true;
 
                     // check first row
                     if (i == 0) {
                         if (dates[i][j] > 7) {
-                            showCalendarClick = false;
+                            showActiveMonthDay = false;
                             month = month - 1;
 
                             if (month <= 0) {
@@ -567,7 +567,7 @@
                     // check last row
                     if (i == nDates - 1) {
                         if (dates[i][j] <= 7) {
-                            showCalendarClick = false;
+                            showActiveMonthDay = false;
                             month = month + 1;
 
                             if (month >= 12) {
@@ -600,19 +600,19 @@
                         }
                     }
 
-                    var colDate = "<td class='calendarClickable " + colDateClass + " " + ((showCalendarClick == true) ? 'calendarClick' : '') + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                    var colDate = "<td class='calendarClickable " + colDateClass + " " + ((showActiveMonthDay == true) ? 'active' : '') + " calendarClick' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
 
                     if (minDate != null) {
                         var myCurrentDate = new Date(year, month - 1, date);
                         if (minDate > myCurrentDate) {
-                            colDate = "<td class='" + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                            colDate = "<td class='calendarClickable " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
                         }
                     }
 
                     if (maxDate != null) {
                         var myCurrentDate = new Date(year, month - 1, date);
                         if (maxDate < myCurrentDate) {
-                            colDate = "<td class='" + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                            colDate = "<td class='calendarClickable " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
                         }
                     }
 
