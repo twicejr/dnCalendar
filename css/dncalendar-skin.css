@@ -125,13 +125,13 @@
 	color: #d00;
 }
 
-.dncalendar-body table td.default-date {
+.dncalendar-body table td.chosen-date {
 	border: 1px solid #96D4FD;
 	color: #96D4FD;
 	background: #e6f2fa;
 }
 
-.dncalendar-body table td.active.default-date {
+.dncalendar-body table td.active.chosen-date {
 	border: 1px solid #0d7fcc;
 	color: #0d7fcc ;
 	background: #e6f2fa;

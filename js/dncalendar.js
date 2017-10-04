@@ -29,7 +29,7 @@
         // current date
         var currDate = new Date();
         // custom default date
-        var defDate = null;
+        var chosenDate = null;
         // today date
         var todayDate = new Date();
         // week names
@@ -520,10 +520,10 @@
             }
 
             var todayTitle = 'today';
-            var defaultDateTitle = 'default date';
+            var chosenDateTitle = 'default date';
             if (typeof settings.dataTitles !== 'undefined') {
-                if (typeof settings.dataTitles.defaultDate !== 'undefined') {
-                    defaultDateTitle = settings.dataTitles.defaultDate;
+                if (typeof settings.dataTitles.chosenDate !== 'undefined') {
+                    chosenDateTitle = settings.dataTitles.chosenDate;
                 }
 
                 if (typeof settings.dataTitles.today !== 'undefined') {
@@ -584,9 +584,9 @@
                     }
 
                     // check date is default date
-                    if (defDate != null && defDate.getFullYear() == year && (defDate.getMonth() + 1) == month && defDate.getDate() == date) {
-                        colDateClass = ' default-date ';
-                        colDateDataAttr = "data-title='" + defaultDateTitle + "'";
+                    if (chosenDate != null && chosenDate.getFullYear() == year && (chosenDate.getMonth() + 1) == month && chosenDate.getDate() == date) {
+                        colDateClass = ' chosen-date ';
+                        colDateDataAttr = "data-title='" + chosenDateTitle + "'";
                     }
 
                     if (j == sundayIndex || j == saturdayIndex) {
@@ -745,11 +745,11 @@
             build: function () {
                 settings = $.extend({}, $.fn.dnCalendar.defaults, options);
 
-                // replace with defaultDate when exist
-                if (typeof settings.defaultDate !== 'undefined') {
-                    var defaultDateArr = settings.defaultDate.split('-');
-                    currDate = new Date(defaultDateArr[0], defaultDateArr[1] - 1, defaultDateArr[2]);
-                    defDate = currDate;
+                // replace with chosenDate when exist
+                if (typeof settings.chosenDate !== 'undefined') {
+                    var chosenDateArr = settings.chosenDate.split('-');
+                    currDate = new Date(chosenDateArr[0], chosenDateArr[1] - 1, chosenDateArr[2]);
+                    chosenDate = currDate;
                 }
 
                 draw();
@@ -758,11 +758,11 @@
             update: function (options) {
                 settings = $.extend(settings, options);
 
-                // replace with defaultDate when exist
-                if (typeof settings.defaultDate !== 'undefined') {
-                    var defaultDateArr = settings.defaultDate.split('-');
-                    currDate = new Date(defaultDateArr[0], defaultDateArr[1] - 1, defaultDateArr[2]);
-                    defDate = currDate;
+                // replace with chosenDate when exist
+                if (typeof settings.chosenDate !== 'undefined') {
+                    var chosenDateArr = settings.chosenDate.split('-');
+                    currDate = new Date(chosenDateArr[0], chosenDateArr[1] - 1, chosenDateArr[2]);
+                    chosenDate = currDate;
                 }
 
                 draw();
