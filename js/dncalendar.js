@@ -770,8 +770,13 @@
         };
 
         return {
-            build: function () {
-                settings = $.extend({}, $.fn.dnCalendar.defaults, options);
+            build: function (update) {
+                if(update) {
+                    settings = $.extend(settings, update);
+                }
+                else {
+                    settings = $.extend({}, $.fn.dnCalendar.defaults, options);
+                }
 
                 // replace with chosenDate when exist
                 if (settings.chosenDate) {
@@ -795,19 +800,12 @@
                 }
 
                 draw();
-                triggerAction();
+                if(!update) {
+                   triggerAction();
+                }
             },
             update: function (options) {
-                settings = $.extend(settings, options);
-
-                // replace with chosenDate when exist
-                if (typeof settings.chosenDate !== 'undefined') {
-                    var chosenDateArr = settings.chosenDate.split('-');
-                    currDate = new Date(chosenDateArr[0], chosenDateArr[1] - 1, chosenDateArr[2]);
-                    chosenDate = currDate;
-                }
-
-                draw();
+                this.build(options);
             }
         };
     };
