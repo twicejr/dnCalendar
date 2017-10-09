@@ -22,6 +22,7 @@
 
 (function ($) {
 
+    var others = {};
     $.fn.dnCalendar = function (options) {
         var self = $(this);
         var settings = {};
@@ -318,7 +319,7 @@
 
                 var newArrRow = newArr.length - 1;
 
-                if (found == false) {
+                if (!found) {
                     var newArrCol = newArr[newArrRow].length - 1;
                     var lastDateInNewArr = newArr[newArrRow][newArrCol];
 
@@ -481,7 +482,7 @@
                     }
                 }
 
-                weekNamesHasAlreadySorted = true
+                weekNamesHasAlreadySorted = true;
             }
 
             var sundayIndex = (dayIndex == 0) ? 0 : 7 - dayIndex;
@@ -534,8 +535,24 @@
             var sundayIndex = (dayIndex == 0) ? 0 : 7 - dayIndex;
             var saturdayIndex = (dayIndex == 0) ? 7 - 1 : 7 - (dayIndex + 1);
 
+            //Group modifications
+            var groupFromDate, groupUntilDate, group;
+            if(settings.group && settings.groupType === 'until') { //until = chronological dependant on the 'from date'. We'll need a separate draw public method / detect when all others are ready if the order must be reverse
+                group = settings.group;
+                var grouped_calendars = others[settings.group];
+                if(grouped_calendars['from']){
+                    groupFromDate = grouped_calendars['from'].getTime();
+                }
+                if(grouped_calendars['until']){
+                    groupUntilDate = grouped_calendars['until'].getTime() + 86399; //a second before midnight. For "until including date" usage
+                }
+            }
+            
+            
+            //End group modifications
 
             var nDates = dates.length;
+            var groupRangeStarted = false;
             for (var i = 0; i < nDates; i++) {
                 var tableBodyRowGroup = $("<tr></tr>");
 
@@ -576,6 +593,9 @@
                             }
                         }
                     }
+                    
+                    var myCurrentDate = new Date(year, month - 1, date);
+                        
 
                     // check date is today
                     if (todayDate.getFullYear() == year && (todayDate.getMonth() + 1) == month && todayDate.getDate() == date) {
@@ -584,9 +604,19 @@
                     }
 
                     // check date is default date
-                    if (chosenDate != null && chosenDate.getFullYear() == year && (chosenDate.getMonth() + 1) == month && chosenDate.getDate() == date) {
-                        colDateClass = ' chosen-date ';
+                    if (chosenDate && chosenDate.getFullYear() == year && (chosenDate.getMonth() + 1) == month && chosenDate.getDate() == date) {
+                        colDateClass += ' chosen-date ';
                         colDateDataAttr = "data-title='" + chosenDateTitle + "'";
+                    }
+                    
+                    var curTime = myCurrentDate.getTime();
+                    if(groupFromDate <= curTime && groupUntilDate > curTime){
+                        if(!groupRangeStarted)
+                        {
+                            colDateClass = ' chosen-date ';
+                        }
+                        groupRangeStarted = true;
+                        colDateClass += ' in-range ';
                     }
 
                     if (j == sundayIndex || j == saturdayIndex) {
@@ -595,7 +625,7 @@
 
                     // check date is noted
                     if (typeof settings.notes !== 'undefined') {
-                        if (dateIsNotes(new Date(year, month - 1, date))) {
+                        if (dateIsNotes(myCurrentDate)) {
                             colDateClass += " note ";
                         }
                     }
@@ -603,14 +633,12 @@
                     var colDate = "<td class='calendarClickable " + colDateClass + " " + ((showActiveMonthDay == true) ? 'active' : '') + " calendarClick' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
 
                     if (minDate != null) {
-                        var myCurrentDate = new Date(year, month - 1, date);
                         if (minDate > myCurrentDate) {
                             colDate = "<td class='calendarClickable " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
                         }
                     }
 
                     if (maxDate != null) {
-                        var myCurrentDate = new Date(year, month - 1, date);
                         if (maxDate < myCurrentDate) {
                             colDate = "<td class='calendarClickable " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
                         }
@@ -751,6 +779,20 @@
                     currDate = new Date(chosenDateArr[0], chosenDateArr[1] - 1, chosenDateArr[2]);
                     chosenDate = currDate;
                 }
+                
+                // replace with todayDate when exist
+                if (settings.todayDate) {
+                    var todayDateAttr = settings.todayDate.split('-');
+                    currDate = new Date(todayDateAttr[0], todayDateAttr[1] - 1, todayDateAttr[2]);
+                    todayDate = currDate;
+                }
+                
+                if(settings.group) { //gather the chosen dates of the others
+                    if(typeof others[settings.group] === typeof undefined){
+                        others[settings.group] = [];
+                    }
+                    others[settings.group][settings.groupType] = chosenDate;
+                }
 
                 draw();
                 triggerAction();
@@ -780,6 +822,10 @@
         monthUseShortName: false,
         showNotes: false,
         startWeek: 'sunday',
+        todayDate: false,
+        group: false,
+        groupType: false,
+        groupFromDayTitle: 'From',
         dayClick: function (date, view) {}
     };
 

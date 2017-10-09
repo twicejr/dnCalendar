@@ -86,9 +86,8 @@
 	cursor: pointer;
 }
 
-.dncalendar-body tbody td.active {
+.dncalendar-body tbody tr td.active {
 	color: #434343;
-	background: #fff;
 }
 	
 .dncalendar-body tbody td .entry {
@@ -192,4 +191,9 @@
 
 .dncalendar-note-list .date {
 	color: #d00
+}
+
+.dncalendar-body tbody td.in-range{
+    background: #3fafee;
+	border: 1px solid #0d7fcc;
 }
