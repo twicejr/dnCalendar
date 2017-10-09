@@ -746,7 +746,7 @@
                 settings = $.extend({}, $.fn.dnCalendar.defaults, options);
 
                 // replace with chosenDate when exist
-                if (typeof settings.chosenDate !== 'undefined') {
+                if (settings.chosenDate) {
                     var chosenDateArr = settings.chosenDate.split('-');
                     currDate = new Date(chosenDateArr[0], chosenDateArr[1] - 1, chosenDateArr[2]);
                     chosenDate = currDate;
