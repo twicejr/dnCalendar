@@ -120,6 +120,17 @@
 	color: #c55;
 }
 
+.dncalendar-body table td.marked.calendarClick {
+	background: #7EE699;
+    color: #000;
+}
+
+.dncalendar-body table td.blocked,
+.dncalendar-body table td.blocked.active {
+	background: #c55;
+    color: #777;
+}
+
 .dncalendar-body table td.active.holiday {
 	color: #d00;
 }

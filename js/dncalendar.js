@@ -610,6 +610,8 @@
                     }
                     
                     var curTime = myCurrentDate.getTime();
+                    
+                    
                     if(groupFromDate <= curTime && groupUntilDate > curTime){
                         if(!groupRangeStarted)
                         {
@@ -618,7 +620,28 @@
                         groupRangeStarted = true;
                         colDateClass += ' in-range ';
                     }
-
+                    
+                    var clickable = settings.markedPeriods ? "" : "calendarClickable";
+                    $.each(settings.markedPeriods, function(el)
+                    {
+                        var from = new Date(settings.markedPeriods[el][0]).getTime();
+                        var until = settings.markedPeriods[el][1] ? new Date(settings.markedPeriods[el][1]).getTime() : true;
+                        if(curTime >= from && (curTime <= until || until === true)){
+                            colDateClass += ' marked ';
+                            clickable =  curTime >= minDate.getTime() ? 'calendarClickable' : '';
+                        }
+                    });
+                    
+                    $.each(settings.blockedPeriods, function(el)
+                    {
+                        var from = new Date(settings.blockedPeriods[el][0]).getTime();
+                        var until = new Date(settings.blockedPeriods[el][1]).getTime();
+                        if(curTime >= from && (curTime <= until || until === true)){
+                            colDateClass = ' blocked ';
+                            clickable = "";
+                        }
+                    });
+                    
                     if (j == sundayIndex || j == saturdayIndex) {
                         colDateClass += ' holiday ';
                     }
@@ -630,17 +653,17 @@
                         }
                     }
 
-                    var colDate = "<td class='calendarClickable " + colDateClass + " " + ((showActiveMonthDay == true) ? 'active' : '') + " calendarClick' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                    var colDate = "<td class='"+ clickable + " " + colDateClass + " " + ((showActiveMonthDay == true) ? 'active' : '') + " calendarClick' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
 
                     if (minDate != null) {
                         if (minDate > myCurrentDate) {
-                            colDate = "<td class='calendarClickable " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                            colDate = "<td class='"+ clickable + " " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
                         }
                     }
 
                     if (maxDate != null) {
                         if (maxDate < myCurrentDate) {
-                            colDate = "<td class='calendarClickable " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                            colDate = "<td class='"+ clickable + " " + colDateClass + "' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
                         }
                     }
 
@@ -823,6 +846,8 @@
         todayDate: false,
         group: false,
         groupType: false,
+        blockedPeriods: false,
+        markedPeriods: false,
         groupFromDayTitle: 'From',
         dayClick: function (date, view) {}
     };
