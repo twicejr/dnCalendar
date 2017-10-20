@@ -599,7 +599,6 @@
                     }
                     
                     var myCurrentDate = new Date(year, month - 1, date);
-                        
 
                     // check date is today
                     if (todayDate.getFullYear() == year && (todayDate.getMonth() + 1) == month && todayDate.getDate() == date) {
@@ -625,16 +624,23 @@
                         colDateClass += ' in-range ';
                     }
                     
+                    
                     var clickable = settings.markedPeriods ? "" : "calendarClickable";
-                    $.each(settings.markedPeriods, function(el)
+                    
+                    if(!settings.blockedWeekDays 
+                        || typeof settings.blockedDays === typeof undefined 
+                        || !(settings.blockedDays.hasOwnProperty(myCurrentDate.getDay())))
                     {
-                        var from = new Date(settings.markedPeriods[el][0]).getTime();
-                        var until = settings.markedPeriods[el][1] ? new Date(settings.markedPeriods[el][1]).getTime() : true;
-                        if(curTime >= from && (curTime <= until || until === true)){
-                            colDateClass += ' marked ';
-                            clickable =  curTime >= minDate.getTime() ? 'calendarClickable' : '';
-                        }
-                    });
+                        $.each(settings.markedPeriods, function(el)
+                        {
+                            var from = new Date(settings.markedPeriods[el][0]).getTime();
+                            var until = settings.markedPeriods[el][1] ? new Date(settings.markedPeriods[el][1]).getTime() : true;
+                            if(curTime >= from && (curTime <= until || until === true)){
+                                colDateClass += ' marked ';
+                                clickable =  curTime >= minDate.getTime() ? 'calendarClickable' : '';
+                            }
+                        });
+                    }
                     
                     $.each(settings.blockedPeriods, function(el)
                     {
@@ -854,6 +860,7 @@
         groupType: false,
         blockedPeriods: false,
         markedPeriods: false,
+        blockedWeekDays: [],
         groupFromDayTitle: 'From',
         dayClick: function (date, view) {}
     };
