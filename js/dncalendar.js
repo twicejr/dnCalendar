@@ -547,6 +547,10 @@
                     groupUntilDate = grouped_calendars['until'].getTime() + 86399; //a second before midnight. For "until including date" usage
                 }
             }
+            else if(settings.groupFromDate && settings.groupUntilDate){
+                var groupFromDate = new Date(settings.groupFromDate*1000);
+                var groupUntilDate = new Date(settings.groupUntilDate*1000);
+            }
             
             
             //End group modifications
@@ -653,7 +657,7 @@
                         }
                     }
 
-                    var colDate = "<td class='"+ clickable + " " + colDateClass + " " + ((showActiveMonthDay == true) ? 'active' : '') + " calendarClick' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
+                    var colDate = "<td class='"+ clickable + " " + colDateClass + " " + (showActiveMonthDay ? 'active' : '') + " calendarClick' data-date='" + date + "' data-month='" + month + "' data-year='" + year + "'><div class='entry' " + colDateDataAttr + ">" + date + "</div></td>";
 
                     if (minDate != null) {
                         if (minDate > myCurrentDate) {
@@ -844,6 +848,8 @@
         showNotes: false,
         startWeek: 'sunday',
         todayDate: false,
+        groupFromDate: "", //unix timestamp
+        groupUntilDate: "",//unix timestamp
         group: false,
         groupType: false,
         blockedPeriods: false,
