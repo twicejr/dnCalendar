@@ -574,8 +574,7 @@
 
                     // check first row
                     if (i == 0) {
-                        if (dates[i][j] > 7) {
-                            showActiveMonthDay = false;
+                        if (date > 7) {
                             month = month - 1;
 
                             if (month <= 0) {
@@ -587,11 +586,10 @@
 
                     // check last row
                     if (i == nDates - 1) {
-                        if (dates[i][j] <= 7) {
-                            showActiveMonthDay = false;
+                        if (date <= 7) {
                             month = month + 1;
 
-                            if (month >= 12) {
+                            if (month > 12) {
                                 month = 1;
                                 year = year + 1;
                             }
@@ -628,8 +626,8 @@
                     var clickable = settings.markedPeriods ? "" : "calendarClickable";
                     
                     if(!settings.blockedWeekDays 
-                        || typeof settings.blockedDays === typeof undefined 
-                        || !(settings.blockedDays.hasOwnProperty(myCurrentDate.getDay())))
+                    || typeof settings.blockedDays === typeof undefined 
+                    || !(settings.blockedDays.hasOwnProperty(myCurrentDate.getDay())))
                     {
                         $.each(settings.markedPeriods, function(el)
                         {
