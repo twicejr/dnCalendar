@@ -625,8 +625,8 @@
                     
                     var clickable = settings.markedPeriods ? "" : "calendarClickable";
                     
-                    if(!settings.blockedWeekDays 
-                    || typeof settings.blockedDays === typeof undefined 
+                    if(typeof settings.blockedDays === typeof undefined 
+                    || !settings.blockedDays
                     || !(settings.blockedDays.hasOwnProperty(myCurrentDate.getDay())))
                     {
                         $.each(settings.markedPeriods, function(el)
@@ -858,7 +858,6 @@
         groupType: false,
         blockedPeriods: false,
         markedPeriods: false,
-        blockedWeekDays: [],
         groupFromDayTitle: 'From',
         dayClick: function (date, view) {}
     };
