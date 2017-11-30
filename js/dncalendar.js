@@ -641,7 +641,7 @@
                             var day = daysplit[0];
 //                            var time = daysplit[1];
                             
-                            var dt = new Date(year, month, day);
+                            var dt = new Date(year, month - 1, day);
                             var from = dt.getTime();
                             
                             var until;
@@ -653,7 +653,7 @@
                                 month = split[1];
                                 daysplit = split[2].split(' ');
                                 day = daysplit[0];
-                                dt = new Date(year, month, day);
+                                dt = new Date(year, month - 1, day);
                                 until = dt.getTime();
                             }
                             else
@@ -677,7 +677,8 @@
                         var month = split[1];
                         var daysplit = split[2].split(' ');
                         var day = daysplit[0];
-                        var dt = new Date(year, month, day);
+                        var timesplit = daysplit[1].split(':');
+                        var dt = new Date(year, month - 1, day, timesplit[0], timesplit[1]);
                         var from = dt.getTime();
 
                         var until;
@@ -687,7 +688,8 @@
                         month = split[1];
                         daysplit = split[2].split(' ');
                         day = daysplit[0];
-                        dt = new Date(year, month, day);
+                        timesplit = daysplit[1].split(':');
+                        dt = new Date(year, month - 1, day, timesplit[0], timesplit[1]);
                         until = dt.getTime();
                         if(curTime >= from && (curTime <= until || until === true)){
                             colDateClass = ' blocked ';
