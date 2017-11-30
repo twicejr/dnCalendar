@@ -625,17 +625,29 @@
                     
                     var clickable = settings.markedPeriods ? "" : "calendarClickable";
                     
+                    var prevtest;
+                    
                     if(typeof settings.blockedDays === typeof undefined 
                     || !settings.blockedDays
                     || !(settings.blockedDays.hasOwnProperty(myCurrentDate.getDay())))
                     {
                         $.each(settings.markedPeriods, function(el)
                         {
-                            var from = new Date(settings.markedPeriods[el][0]).getTime();
+                            var dtstring = settings.markedPeriods[el][0];
+                            var split = dtstring.split('-');
+                            var year = split[0];
+                            var month = split[1];
+                            var daysplit = split[2].split(' ');
+                            var day = daysplit[0];
+//                            var time = daysplit[1];
+                            
+                            var dt = new Date(year, month, day);
+                            var from = dt.getTime();
                             var until = settings.markedPeriods[el][1] ? new Date(settings.markedPeriods[el][1]).getTime() : true;
-                            if(curTime >= from && (curTime <= until || until === true)){
+                            if(!colDateClass.match('marked') && curTime >= from && (curTime <= until || until === true)){
                                 colDateClass += ' marked ';
                                 clickable =  curTime >= minDate.getTime() ? 'calendarClickable' : '';
+                                return;
                             }
                         });
                     }
