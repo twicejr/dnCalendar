@@ -643,7 +643,24 @@
                             
                             var dt = new Date(year, month, day);
                             var from = dt.getTime();
-                            var until = settings.markedPeriods[el][1] ? new Date(settings.markedPeriods[el][1]).getTime() : true;
+                            
+                            var until;
+                            if(settings.markedPeriods[el][1])
+                            {
+                                dtstring = settings.markedPeriods[el][1];
+                                split = dtstring.split('-');
+                                year = split[0];
+                                month = split[1];
+                                daysplit = split[2].split(' ');
+                                day = daysplit[0];
+                                dt = new Date(year, month, day);
+                                until = dt.getTime();
+                            }
+                            else
+                            {
+                                until = true;
+                            }
+                            
                             if(!colDateClass.match('marked') && curTime >= from && (curTime <= until || until === true)){
                                 colDateClass += ' marked ';
                                 clickable =  curTime >= minDate.getTime() ? 'calendarClickable' : '';
@@ -654,8 +671,24 @@
                     
                     $.each(settings.blockedPeriods, function(el)
                     {
-                        var from = new Date(settings.blockedPeriods[el][0]).getTime();
-                        var until = new Date(settings.blockedPeriods[el][1]).getTime();
+                        var dtstring = settings.blockedPeriods[el][0];
+                        var split = dtstring.split('-');
+                        var year = split[0];
+                        var month = split[1];
+                        var daysplit = split[2].split(' ');
+                        var day = daysplit[0];
+                        var dt = new Date(year, month, day);
+                        var from = dt.getTime();
+
+                        var until;
+                        dtstring = settings.blockedPeriods[el][1];
+                        split = dtstring.split('-');
+                        year = split[0];
+                        month = split[1];
+                        daysplit = split[2].split(' ');
+                        day = daysplit[0];
+                        dt = new Date(year, month, day);
+                        until = dt.getTime();
                         if(curTime >= from && (curTime <= until || until === true)){
                             colDateClass = ' blocked ';
                             clickable = "";
